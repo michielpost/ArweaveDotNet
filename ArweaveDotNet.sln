@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArweaveBlazor.SampleApp", "ArweaveBlazor.SampleApp\ArweaveBlazor.SampleApp.csproj", "{BC086CD3-9EBD-4479-AFA4-FB745C86535F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArweaveBlazor", "ArweaveBlazor\ArweaveBlazor.csproj", "{F7D98BE3-1936-4C40-8BDC-C15F3B3A3ED6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArweaveAO", "ArweaveAO\ArweaveAO.csproj", "{0C44BE71-8F5F-45F3-82EE-7BDF2419667C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArweaveAO.Tests", "ArweaveAO.Tests\ArweaveAO.Tests.csproj", "{B5A3DB22-1596-4306-8013-E85480700152}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC086CD3-9EBD-4479-AFA4-FB745C86535F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC086CD3-9EBD-4479-AFA4-FB745C86535F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC086CD3-9EBD-4479-AFA4-FB745C86535F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC086CD3-9EBD-4479-AFA4-FB745C86535F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D98BE3-1936-4C40-8BDC-C15F3B3A3ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D98BE3-1936-4C40-8BDC-C15F3B3A3ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D98BE3-1936-4C40-8BDC-C15F3B3A3ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D98BE3-1936-4C40-8BDC-C15F3B3A3ED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C44BE71-8F5F-45F3-82EE-7BDF2419667C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C44BE71-8F5F-45F3-82EE-7BDF2419667C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C44BE71-8F5F-45F3-82EE-7BDF2419667C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C44BE71-8F5F-45F3-82EE-7BDF2419667C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5A3DB22-1596-4306-8013-E85480700152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A3DB22-1596-4306-8013-E85480700152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A3DB22-1596-4306-8013-E85480700152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A3DB22-1596-4306-8013-E85480700152}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B934E9C-18C3-4E0E-8FBA-6B8E84FC6A13}
+	EndGlobalSection
+EndGlobal

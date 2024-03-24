@@ -1,0 +1,51 @@
+﻿@page "/"
+
+<PageTitle>Arweave Blazor SDK Sample dApp</PageTitle>
+
+<h1>Arweave Blazor SDK Sample dApp</h1>
+
+@if (!HasArConnectExtension)
+{
+    <p>No ArConnect Extension. Please install <a href="https://www.arconnect.io/" target="_blank">ArConnect</a>.</p>
+}
+else 
+{
+    <h2>ArConnect detected</h2>
+    <br />
+    <br />
+    <button class="btn btn-primary" @onclick="Connect">Connect</button>
+    <button class="btn btn-primary" @onclick="Disconnect">Disconnect</button>
+
+    <br />
+    <br />
+    <button class="btn btn-primary" @onclick="GetActiveAddress">Get Active Address</button>
+
+    <br />
+    <br />
+    <button class="btn btn-primary" @onclick="GetBalance">Get Balance</button>
+
+    <br />
+    <br />
+    <button class="btn btn-primary" @onclick="Send">Send message</button>
+
+    <br />
+    <br />
+    <button class="btn btn-primary" @onclick="SendDryRun">Send Dry Run</button>
+
+    <br />
+    <br />
+    <InputText @bind-Value="msgId" />
+    <button class="btn btn-primary" @onclick="GetResult">Read result</button>
+    <br />
+
+    <br />
+    <br />
+    <button class="btn btn-primary" @onclick="GetResults">Read multiple result</button>
+    <br />
+
+}
+
+
+
+<small>Source code and docs available on <a href="https://github.com/michielpost/ArweaveBlazor" target="_blank">GitHub</a></small>
+

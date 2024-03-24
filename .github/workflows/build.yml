@@ -1,0 +1,20 @@
+name: Build
+
+# Run workflow on every push to the master branch
+on:
+  push:
+
+jobs:
+  publish:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.0.x
+      - name: Build with dotnet
+        run: dotnet build ArweaveDotNet.sln --configuration Release
+      - name: Publish Example
+        run: dotnet publish ArweaveBlazor.SampleApp -o publish/SampleApp -c Release

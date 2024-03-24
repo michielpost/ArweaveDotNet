@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Authors>Michiel Post</Authors>
+		<Version>0.0.1</Version>
+		<Product>ArweaveAO</Product>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/michielpost/ArweaveDotNet</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/michielpost/ArweaveDotNet</RepositoryUrl>
+		<RepositoryType>github</RepositoryType>
+		<PackageTags>arweave blockchain web3 blazor</PackageTags>
+		<Description>Arweave C# Helpers</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>
