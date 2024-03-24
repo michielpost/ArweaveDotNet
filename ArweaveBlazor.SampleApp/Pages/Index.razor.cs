@@ -8,6 +8,7 @@ namespace ArweaveBlazor.SampleApp.Pages
         public ArweaveService ArweaveService { get; set; } = default!;
 
         public bool HasArConnectExtension { get; set; }
+        public bool IsWalletConnected { get; set; }
 
         private string _morpheus = "sOQYMwbbTr5MlPwp-KUmbXgCCvfoVjgTOBuUDQJZAIU";
 
@@ -17,16 +18,23 @@ namespace ArweaveBlazor.SampleApp.Pages
 
         }
 
+        public async Task ConnectArweaveApp()
+        {
+            await ArweaveService.ConnectArweaveAppAsync("Sample App");
+            IsWalletConnected = await ArweaveService.CheckIsConnected();
+        }
+
+
         public async Task Connect()
         {
-            await ArweaveService.ConnectAsync(new string[] { "ACCESS_ADDRESS", "SIGN_TRANSACTION" }, "Sample App");
-
+            await ArweaveService.ConnectArConnectAsync(new string[] { "ACCESS_ADDRESS", "SIGN_TRANSACTION" }, "Sample App");
+            IsWalletConnected = await ArweaveService.CheckIsConnected();
         }
 
         public async Task Disconnect()
         {
             await ArweaveService.DisconnectAsync();
-
+            IsWalletConnected = await ArweaveService.CheckIsConnected();
         }
 
         public async Task GetBalance()

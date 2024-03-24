@@ -4,16 +4,26 @@
 
 <h1>Arweave Blazor SDK Sample dApp</h1>
 
+<button class="btn btn-primary" @onclick="ConnectArweaveApp">Connect Arweave.App</button>
+
+
 @if (!HasArConnectExtension)
 {
     <p>No ArConnect Extension. Please install <a href="https://www.arconnect.io/" target="_blank">ArConnect</a>.</p>
 }
-else 
+else
 {
     <h2>ArConnect detected</h2>
     <br />
     <br />
-    <button class="btn btn-primary" @onclick="Connect">Connect</button>
+    <button class="btn btn-primary" @onclick="Connect">Connect ArConnect</button>
+}
+
+@if(IsWalletConnected) 
+{
+    <h2>Wallet loaded</h2>
+    <br />
+    <br />
     <button class="btn btn-primary" @onclick="Disconnect">Disconnect</button>
 
     <br />

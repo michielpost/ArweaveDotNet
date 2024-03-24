@@ -18,13 +18,13 @@ namespace ArweaveBlazor
     public class ArweaveService : IAsyncDisposable
     {
         private readonly Lazy<Task<IJSObjectReference>> moduleTask;
-        private readonly Lazy<Task<IJSObjectReference>> arweaveTask;
+        //private readonly Lazy<Task<IJSObjectReference>> arweaveTask;
         //private readonly Lazy<Task<IJSObjectReference>> aoTask;
 
         public ArweaveService(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => LoadScripts("./_content/ArweaveBlazor/arweaveJsInterop.js", jsRuntime).AsTask());
-            arweaveTask = new(() => LoadScripts("https://unpkg.com/arweave/bundles/web.bundle.min.js", jsRuntime).AsTask());
+            //arweaveTask = new(() => LoadScripts("https://unpkg.com/arweave/bundles/web.bundle.min.js", jsRuntime).AsTask());
             //aoTask = new(() => LoadScripts("https://www.unpkg.com/@permaweb/aoconnect@0.0.48/dist/browser.js", jsRuntime).AsTask());
             InitArweave();
         }
@@ -49,7 +49,19 @@ namespace ArweaveBlazor
             return result;
         }
 
-        public async ValueTask ConnectAsync(string[] permissions, string? appName = null, string? appLogo = null)
+        public async ValueTask ConnectArweaveAppAsync(string? appName = null, string? appLogo = null)
+        {
+            var module = await moduleTask.Value;
+
+            try
+            {
+                await module.InvokeVoidAsync("ConnectArweaveApp", appName, appLogo);
+            }
+            catch (JSException jsex)
+            { }
+        }
+
+        public async ValueTask ConnectArConnectAsync(string[] permissions, string? appName = null, string? appLogo = null)
         {
             var module = await moduleTask.Value;
 
@@ -61,7 +73,7 @@ namespace ArweaveBlazor
                 logo = appLogo
             };
 
-            await module.InvokeVoidAsync("Connect", permissions, appInfo);
+            await module.InvokeVoidAsync("ConnectArConnect", permissions, appInfo);
             }
             catch (JSException jsex)
             { }
@@ -77,6 +89,12 @@ namespace ArweaveBlazor
             }
             catch(JSException jsex)
             { }
+        }
+
+        public async Task<bool> CheckIsConnected()
+        {
+            var address = await GetActiveAddress();
+            return !string.IsNullOrEmpty(address);
         }
 
         public async ValueTask<string> SendAsync(string processId, string? data, List<Tag>? tags = null)

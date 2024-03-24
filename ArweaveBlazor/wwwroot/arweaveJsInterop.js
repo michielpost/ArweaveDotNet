@@ -8,6 +8,9 @@ import {
     createDataItemSigner
 } from "https://www.unpkg.com/@permaweb/aoconnect@0.0.45/dist/browser.js";
 
+import { ArweaveWebWallet } from 'https://www.unpkg.com/arweave-wallet-connector@1.0.2/lib/index.js';
+import { } from 'https://unpkg.com/arweave/bundles/web.bundle.min.js';
+
 let arweave;
 
 export function loadJs(sourceUrl) {
@@ -49,7 +52,17 @@ export async function GetWalletBalance(address) {
     return result;
 }
 
-export async function Connect(permissions, appInfo) {
+export async function ConnectArweaveApp(name, logo) {
+    const wallet = new ArweaveWebWallet({ 
+        name: name,
+        logo: logo
+    })
+
+    wallet.setUrl('arweave.app')
+    await wallet.connect() 
+}
+
+export async function ConnectArConnect(permissions, appInfo) {
     var result = await window.arweaveWallet.connect(permissions, appInfo)
     return result;
 }
