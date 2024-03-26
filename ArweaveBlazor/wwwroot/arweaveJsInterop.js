@@ -5,10 +5,12 @@ import {
     result,
     results,
     dryrun,
-    createDataItemSigner
-} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.45/dist/browser.js";
+    createDataItemSigner as webSigner
+} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.49/dist/browser.js";
 
-import { ArweaveWebWallet } from 'https://www.unpkg.com/arweave-wallet-connector@1.0.2/lib/index.js';
+import { } from "https://www.unpkg.com/arbundles@0.11.0/build/web/bundle.js";
+
+import { ArweaveWebWallet } from 'https://www.unpkg.com/arweave-wallet-connector-signdataitem-fix@1.0.2/lib/index.js';
 import { } from 'https://unpkg.com/arweave/bundles/web.bundle.min.js';
 
 let arweave;
@@ -47,6 +49,19 @@ export async function HasArConnect() {
     }
 };
 
+export async function GenerateWallet() {
+    var result = await arweave.wallets.generate();
+    console.log(result);
+    return JSON.stringify(result);
+}
+
+export async function GetAddress(jwk) {
+    var jwkJson = JSON.parse(jwk);
+    var result = await arweave.wallets.getAddress(jwkJson);
+    console.log(result);
+    return result;
+}
+
 export async function GetWalletBalance(address) {
     var result = await arweave.wallets.getBalance(address)
     return result;
@@ -81,12 +96,32 @@ export async function GetActiveAddress(permissions, appInfo) {
     return null;
 }
 
-export async function Send(processId, data, tags) {
-    //let tags = [
-    //    { name: "Your-Tag-Name-Here", value: "your-tag-value" },
-    //    { name: "Another-Tag", value: "another-value" },
-    //];
-    let signer = createDataItemSigner(window.arweaveWallet);
+export function createDataItemSigner(wallet) {
+    const signer = async ({ data, tags, target, anchor }) => {
+        const signer = new Arbundles.ArweaveSigner(wallet)
+        const dataItem = Arbundles.createData(data, signer, { tags, target, anchor })
+        return dataItem.sign(signer)
+            .then(async () => ({
+                id: await dataItem.id,
+                raw: await dataItem.getRaw()
+            }))
+    }
+
+    return signer
+}
+
+export async function Send(jwk, processId, data, tags) {
+    var signer;
+
+    if (jwk != null) {
+        wallet = JSON.parse(jwk);
+        signer = createDataItemSigner(wallet);
+    }
+    else {
+        var wallet = window.arweaveWallet;
+        signer = webSigner(wallet);
+    }
+
 
     try {
         let result = await message({

@@ -49,6 +49,22 @@ namespace ArweaveBlazor
             return result;
         }
 
+        public async Task<string> GenerateWallet()
+        {
+            var module = await moduleTask.Value;
+
+            var result = await module.InvokeAsync<string>("GenerateWallet");
+            return result;
+        }
+
+        public async Task<string> GetAddress(string jwk)
+        {
+            var module = await moduleTask.Value;
+
+            var result = await module.InvokeAsync<string>("GetAddress", jwk);
+            return result;
+        }
+
         public async ValueTask ConnectArweaveAppAsync(string? appName = null, string? appLogo = null)
         {
             var module = await moduleTask.Value;
@@ -97,10 +113,18 @@ namespace ArweaveBlazor
             return !string.IsNullOrEmpty(address);
         }
 
-        public async ValueTask<string> SendAsync(string processId, string? data, List<Tag>? tags = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jwk">Null for browser wallet</param>
+        /// <param name="processId"></param>
+        /// <param name="data"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async ValueTask<string> SendAsync(string? jwk, string processId, string? data, List<Tag>? tags = null)
         {
             var module = await moduleTask.Value;
-            var result = await module.InvokeAsync<string>("Send", processId, data, tags);
+            var result = await module.InvokeAsync<string>("Send", jwk, processId, data, tags);
             return result;
         }
 

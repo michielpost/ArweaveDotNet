@@ -24,6 +24,16 @@ namespace ArweaveBlazor.SampleApp.Pages
             IsWalletConnected = await ArweaveService.CheckIsConnected();
         }
 
+        string? jwk;
+        public async Task GenerateWallet()
+        {
+            jwk = await ArweaveService.GenerateWallet();
+            Console.WriteLine("get address");
+            var address = await ArweaveService.GetAddress(jwk);
+            Console.WriteLine("jwk address: " + address);
+            IsWalletConnected = !string.IsNullOrEmpty(address);
+        }
+
 
         public async Task Connect()
         {
@@ -33,6 +43,7 @@ namespace ArweaveBlazor.SampleApp.Pages
 
         public async Task Disconnect()
         {
+            jwk = null;
             await ArweaveService.DisconnectAsync();
             IsWalletConnected = await ArweaveService.CheckIsConnected();
         }
@@ -53,7 +64,7 @@ namespace ArweaveBlazor.SampleApp.Pages
         string? msgId;
         public async Task Send()
         {
-            msgId = await ArweaveService.SendAsync(_morpheus, "Morpheus?");
+            msgId = await ArweaveService.SendAsync(jwk, _morpheus, "Morpheus?");
 
         }
 
