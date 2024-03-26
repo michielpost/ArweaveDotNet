@@ -194,3 +194,12 @@ export async function GetResults(processId, limit) {
    console.log(resultsOut);
 }
 
+export async function SaveFile(fileName, fileContent) {
+    const blob = new Blob([fileContent], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+    window.URL.revokeObjectURL(link.href);
+}
+

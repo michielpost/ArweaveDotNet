@@ -57,6 +57,14 @@ namespace ArweaveBlazor
             return result;
         }
 
+        public async Task<string> SaveFile(string fileName, string fileContent)
+        {
+            var module = await moduleTask.Value;
+
+            var result = await module.InvokeAsync<string>("SaveFile", fileName, fileContent);
+            return result;
+        }
+
         public async Task<string> GetAddress(string jwk)
         {
             var module = await moduleTask.Value;

@@ -6,7 +6,12 @@
 
 <button class="btn btn-primary" @onclick="ConnectArweaveApp">Connect Arweave.App</button>
 <button class="btn btn-primary" @onclick="GenerateWallet">Generate New Wallet</button>
+<InputFile OnChange="HandleFileSelected" />
 
+@if (!string.IsNullOrEmpty(jwk))
+{
+    <button class="btn btn-primary" @onclick="DownloadWallet">Backup Wallet</button>
+}
 
 @if (!HasArConnectExtension)
 {
