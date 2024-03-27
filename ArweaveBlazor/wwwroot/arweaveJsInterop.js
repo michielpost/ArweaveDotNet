@@ -10,7 +10,6 @@ import {
 
 import { } from "https://www.unpkg.com/arbundles@0.11.0/build/web/bundle.js";
 
-import { ArweaveWebWallet } from 'https://www.unpkg.com/arweave-wallet-connector-signdataitem-fix@1.0.2/lib/index.js';
 import { } from 'https://unpkg.com/arweave/bundles/web.bundle.min.js';
 
 let arweave;
@@ -65,16 +64,6 @@ export async function GetAddress(jwk) {
 export async function GetWalletBalance(address) {
     var result = await arweave.wallets.getBalance(address)
     return result;
-}
-
-export async function ConnectArweaveApp(name, logo) {
-    const wallet = new ArweaveWebWallet({ 
-        name: name,
-        logo: logo
-    })
-
-    wallet.setUrl('arweave.app')
-    await wallet.connect() 
 }
 
 export async function ConnectArConnect(permissions, appInfo) {

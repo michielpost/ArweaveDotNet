@@ -20,12 +20,6 @@ namespace ArweaveBlazor.SampleApp.Pages
 
         }
 
-        public async Task ConnectArweaveApp()
-        {
-            await ArweaveService.ConnectArweaveAppAsync("Sample App");
-            IsWalletConnected = await ArweaveService.CheckIsConnected();
-        }
-
         string? jwk;
         public async Task GenerateWallet()
         {

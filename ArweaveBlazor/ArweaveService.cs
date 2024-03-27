@@ -73,18 +73,6 @@ namespace ArweaveBlazor
             return result;
         }
 
-        public async ValueTask ConnectArweaveAppAsync(string? appName = null, string? appLogo = null)
-        {
-            var module = await moduleTask.Value;
-
-            try
-            {
-                await module.InvokeVoidAsync("ConnectArweaveApp", appName, appLogo);
-            }
-            catch (JSException jsex)
-            { }
-        }
-
         public async ValueTask ConnectArConnectAsync(string[] permissions, string? appName = null, string? appLogo = null)
         {
             var module = await moduleTask.Value;
