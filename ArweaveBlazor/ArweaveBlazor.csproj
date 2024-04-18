@@ -8,7 +8,7 @@
 	  <IncludeSymbols>True</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  <Authors>Michiel Post</Authors>
-	  <Version>0.0.4</Version>
+	  <Version>0.0.5</Version>
 	  <Product>ArweaveBlazor</Product>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageProjectUrl>https://github.com/michielpost/ArweaveDotNet</PackageProjectUrl>
