@@ -65,6 +65,7 @@ namespace ArweaveAO
                 var request = new DryRunRequest
                 {
                     Target = tokenId,
+                    Owner = address,
                     Tags = new List<Tag>
                     {
                         new Tag { Name = "Action", Value = "Balance"},

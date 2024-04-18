@@ -6,10 +6,11 @@ import {
     results,
     dryrun,
     createDataItemSigner as webSigner
-} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.49/dist/browser.js";
+} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.52/dist/browser.js";
 
 import { } from "https://www.unpkg.com/arbundles@0.11.0/build/web/bundle.js";
 
+//import { ArweaveWebWallet } from 'https://www.unpkg.com/arweave-wallet-connector-signdataitem-fix@1.0.2/lib/index.js';
 import { } from 'https://unpkg.com/arweave/bundles/web.bundle.min.js';
 
 let arweave;
@@ -66,6 +67,16 @@ export async function GetWalletBalance(address) {
     return result;
 }
 
+//export async function ConnectArweaveApp(name, logo) {
+//    const wallet = new ArweaveWebWallet({ 
+//        name: name,
+//        logo: logo
+//    })
+
+//    wallet.setUrl('arweave.app')
+//    await wallet.connect() 
+//}
+
 export async function ConnectArConnect(permissions, appInfo) {
     var result = await window.arweaveWallet.connect(permissions, appInfo)
     return result;
@@ -99,7 +110,7 @@ export function createDataItemSigner(wallet) {
     return signer
 }
 
-export async function Send(jwk, processId, data, tags) {
+export async function Send(jwk, processId, owner, data, tags) {
     var signer;
 
     if (jwk != null) {
@@ -115,6 +126,7 @@ export async function Send(jwk, processId, data, tags) {
     try {
         let result = await message({
             process: processId,
+            owner: owner,
             tags: tags,
             signer: signer,
             data: data,
@@ -128,19 +140,20 @@ export async function Send(jwk, processId, data, tags) {
 }
 
 
-export async function SendDryRun(processId, data, tags) {
+export async function SendDryRun(processId, owner, data, tags) {
     //let tags = [
     //    { name: "Your-Tag-Name-Here", value: "your-tag-value" },
     //    { name: "Another-Tag", value: "another-value" },
     //];
     //let signer = createDataItemSigner(window.arweaveWallet);
-
+    console.log('owner:' + owner)
     try {
         let { Messages, Spawns, Output, Error } = await dryrun({
             process: processId,
+            Owner: owner,
             tags: tags,
             //signer: signer,
-            data: data,
+            Data: data,
         });
 
         //console.log(Messages);

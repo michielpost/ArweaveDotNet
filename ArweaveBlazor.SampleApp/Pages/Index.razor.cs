@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using ArweaveBlazor.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 
@@ -18,6 +19,12 @@ namespace ArweaveBlazor.SampleApp.Pages
         {
             HasArConnectExtension = await ArweaveService.HasArConnectAsync();
 
+        }
+
+        public async Task ConnectArweaveApp()
+        {
+            await ArweaveService.ConnectArweaveAppAsync("Sample App");
+            IsWalletConnected = await ArweaveService.CheckIsConnected();
         }
 
         string? jwk;
@@ -91,13 +98,27 @@ namespace ArweaveBlazor.SampleApp.Pages
         string? msgId;
         public async Task Send()
         {
-            msgId = await ArweaveService.SendAsync(jwk, _morpheus, "Morpheus?");
+            msgId = await ArweaveService.SendAsync(jwk, _morpheus, null, "Morpheus?");
 
         }
 
         public async Task SendDryRun()
         {
-            await ArweaveService.SendDryRunAsync<string>(_morpheus, "Morpheus?");
+            var result = await ArweaveService.SendDryRunAsync<string>(_morpheus, null, "Morpheus?");
+
+            //string CRED = "Sa0iBLPNyJQrwpTTG-tWLQU-1QeUAJA73DdxGGiKoJc";
+
+            //string address = "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk";
+            //var tags = new List<Tag>
+            //{
+            //    new Tag { Name = "Action", Value = "Balance"},
+            //    new Tag { Name = "Target", Value = address},
+            //    new Tag { Name = "Type", Value = "Message"},
+            //    new Tag { Name = "Variant", Value = "ao.TN.1"},
+            //    new Tag { Name = "Protocol", Value = "ao"},
+            //};
+            //var balanceTest = await ArweaveService.SendDryRunAsync<string>(CRED, address, null, tags);
+
         }
 
         public async Task GetResult()

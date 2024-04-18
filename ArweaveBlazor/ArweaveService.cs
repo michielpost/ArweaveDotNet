@@ -73,6 +73,18 @@ namespace ArweaveBlazor
             return result;
         }
 
+        public async ValueTask ConnectArweaveAppAsync(string? appName = null, string? appLogo = null)
+        {
+            var module = await moduleTask.Value;
+
+            try
+            {
+                await module.InvokeVoidAsync("ConnectArweaveApp", appName, appLogo);
+            }
+            catch (JSException jsex)
+            { }
+        }
+
         public async ValueTask ConnectArConnectAsync(string[] permissions, string? appName = null, string? appLogo = null)
         {
             var module = await moduleTask.Value;
@@ -117,17 +129,17 @@ namespace ArweaveBlazor
         /// <param name="data"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async ValueTask<string> SendAsync(string? jwk, string processId, string? data, List<Tag>? tags = null)
+        public async ValueTask<string> SendAsync(string? jwk, string processId, string? owner, string? data, List<Tag>? tags = null)
         {
             var module = await moduleTask.Value;
-            var result = await module.InvokeAsync<string>("Send", jwk, processId, data, tags);
+            var result = await module.InvokeAsync<string>("Send", jwk, processId, owner, data, tags);
             return result;
         }
 
-        public async ValueTask<T?> SendDryRunAsync<T>(string processId, string? data, List<Tag>? tags = null)
+        public async ValueTask<T?> SendDryRunAsync<T>(string processId, string? owner, string? data, List<Tag>? tags = null)
         {
             var module = await moduleTask.Value;
-            var result = await module.InvokeAsync<T?>("SendDryRun", processId, data, tags);
+            var result = await module.InvokeAsync<T?>("SendDryRun", processId, owner, data, tags);
             return result;
         }
 

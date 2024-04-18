@@ -7,6 +7,7 @@ namespace ArweaveAO.Tests
     public class AODataClientTest
     {
         private const string CRED = "Sa0iBLPNyJQrwpTTG-tWLQU-1QeUAJA73DdxGGiKoJc";
+        private const string AOWW = "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY";
 
         [TestMethod]
         public async Task DryRunTest()
@@ -35,8 +36,21 @@ namespace ArweaveAO.Tests
         {
             var api = new TokenClient(new HttpClient());
             var result = await api.GetBalance(CRED, "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk");
+            var result2 = await api.GetBalance(CRED, "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY");
+
+            //Assert.IsNotNull(result);
+            Assert.IsNotNull(result2);
+        }
+
+        [TestMethod]
+        public async Task GetAOWWBalanceTest()
+        {
+            var api = new TokenClient(new HttpClient());
+            var result = await api.GetBalance(AOWW, "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk");
+            var result2 = await api.GetBalance(AOWW, "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY");
 
             Assert.IsNotNull(result);
+            Assert.IsNotNull(result2);
         }
     }
 }
