@@ -6,7 +6,7 @@ import {
     results,
     dryrun,
     createDataItemSigner as webSigner
-} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.52/dist/browser.js";
+} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.53/dist/browser.js";
 
 import { } from "https://www.unpkg.com/arbundles@0.11.0/build/web/bundle.js";
 
@@ -51,14 +51,12 @@ export async function HasArConnect() {
 
 export async function GenerateWallet() {
     var result = await arweave.wallets.generate();
-    console.log(result);
     return JSON.stringify(result);
 }
 
 export async function GetAddress(jwk) {
     var jwkJson = JSON.parse(jwk);
     var result = await arweave.wallets.getAddress(jwkJson);
-    console.log(result);
     return result;
 }
 
@@ -67,15 +65,15 @@ export async function GetWalletBalance(address) {
     return result;
 }
 
-//export async function ConnectArweaveApp(name, logo) {
-//    const wallet = new ArweaveWebWallet({ 
-//        name: name,
-//        logo: logo
-//    })
+export async function ConnectArweaveApp(name, logo) {
+    const wallet = new ArweaveWebWallet({ 
+        name: name,
+        logo: logo
+    })
 
-//    wallet.setUrl('arweave.app')
-//    await wallet.connect() 
-//}
+    wallet.setUrl('arweave.app')
+    await wallet.connect() 
+}
 
 export async function ConnectArConnect(permissions, appInfo) {
     var result = await window.arweaveWallet.connect(permissions, appInfo)
@@ -141,12 +139,6 @@ export async function Send(jwk, processId, owner, data, tags) {
 
 
 export async function SendDryRun(processId, owner, data, tags) {
-    //let tags = [
-    //    { name: "Your-Tag-Name-Here", value: "your-tag-value" },
-    //    { name: "Another-Tag", value: "another-value" },
-    //];
-    //let signer = createDataItemSigner(window.arweaveWallet);
-    console.log('owner:' + owner)
     try {
         let { Messages, Spawns, Output, Error } = await dryrun({
             process: processId,
