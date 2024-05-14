@@ -1,6 +1,7 @@
 ﻿using ArweaveAO.Models;
 using ArweaveAO.Requests;
 using ArweaveAO.Responses;
+using Microsoft.Extensions.Options;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -10,8 +11,7 @@ namespace ArweaveAO
 {
     public class AODataClient : ClientAPI
     {
-        public AODataClient(HttpClient http) : base("https://cu.ao-testnet.xyz", http) { }
-        public AODataClient(string baseRoute, HttpClient http) : base(baseRoute, http) { }
+        public AODataClient(IOptions<ArweaveConfig> config, HttpClient http) : base(config, http) { }
 
         public async Task<MessageResult?> DryRun(string processId, DryRunRequest request)
         {

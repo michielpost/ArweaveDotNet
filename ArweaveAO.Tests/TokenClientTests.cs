@@ -1,5 +1,6 @@
 using ArweaveAO.Models;
 using ArweaveAO.Requests;
+using Microsoft.Extensions.Options;
 
 namespace ArweaveAO.Tests
 {
@@ -24,7 +25,7 @@ namespace ArweaveAO.Tests
                     }
             };
 
-            var api = new AODataClient(new HttpClient());
+            var api = new AODataClient(Options.Create(new ArweaveConfig()), new HttpClient());
 
             var result = await api.DryRun(CRED, request);
 
@@ -34,7 +35,7 @@ namespace ArweaveAO.Tests
         [TestMethod]
         public async Task GetBalanceTest()
         {
-            var api = new TokenClient(new HttpClient());
+            var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
             var result = await api.GetBalance(CRED, "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk");
             var result2 = await api.GetBalance(CRED, "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY");
 
@@ -45,7 +46,7 @@ namespace ArweaveAO.Tests
         [TestMethod]
         public async Task GetAOWWBalanceTest()
         {
-            var api = new TokenClient(new HttpClient());
+            var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
             var result = await api.GetBalance(AOWW, "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk");
             var result2 = await api.GetBalance(AOWW, "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY");
 

@@ -104,20 +104,20 @@ namespace ArweaveBlazor.SampleApp.Pages
 
         public async Task SendDryRun()
         {
-            var result = await ArweaveService.SendDryRunAsync<string>(_morpheus, null, "Morpheus?");
+            //var result = await ArweaveService.SendDryRunAsync<string>(_morpheus, null, "Morpheus?");
 
-            //string CRED = "Sa0iBLPNyJQrwpTTG-tWLQU-1QeUAJA73DdxGGiKoJc";
+            string CRED = "Sa0iBLPNyJQrwpTTG-tWLQU-1QeUAJA73DdxGGiKoJc";
 
-            //string address = "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk";
-            //var tags = new List<Tag>
-            //{
-            //    new Tag { Name = "Action", Value = "Balance"},
-            //    new Tag { Name = "Target", Value = address},
-            //    new Tag { Name = "Type", Value = "Message"},
-            //    new Tag { Name = "Variant", Value = "ao.TN.1"},
-            //    new Tag { Name = "Protocol", Value = "ao"},
-            //};
-            //var balanceTest = await ArweaveService.SendDryRunAsync<string>(CRED, address, null, tags);
+            string address = "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk";
+            var tags = new List<Tag>
+            {
+                new Tag { Name = "Action", Value = "Balance"},
+                new Tag { Name = "Target", Value = address},
+                new Tag { Name = "Type", Value = "Message"},
+                new Tag { Name = "Variant", Value = "ao.TN.1"},
+                new Tag { Name = "Protocol", Value = "ao"},
+            };
+            var balanceTest = await ArweaveService.SendDryRunAsync<string>(CRED, address, null, tags);
 
         }
 
@@ -134,6 +134,12 @@ namespace ArweaveBlazor.SampleApp.Pages
         public async Task GetResults()
         {
             await ArweaveService.GetResultsAsync(_morpheus, 10);
+
+        }
+
+        public async Task SetConnection()
+        {
+            await ArweaveService.SetConnection("https://arweave.dev", "https://arweave.dev/graphql", "https://ao-mu-1.onrender.com", "https://ao-cu-1.onrender.com");
 
         }
 

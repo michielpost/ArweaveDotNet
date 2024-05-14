@@ -1,6 +1,7 @@
 ﻿using ArweaveAO.Models;
 using ArweaveAO.Models.Token;
 using ArweaveAO.Requests;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ArweaveAO
     /// </summary>
     public class TokenClient : AODataClient
     {
-        public TokenClient(HttpClient http) : base("https://cu.ao-testnet.xyz", http) { }
+        public TokenClient(IOptions<ArweaveConfig> config, HttpClient http) : base(config, http) { }
 
         public async Task<TokenData?> GetTokenMetaData(string processId)
         {

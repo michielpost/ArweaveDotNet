@@ -1,10 +1,7 @@
 // This is a JavaScript module that is loaded on demand. It can export any number of
 // functions, and may import other JavaScript modules if required.
 import {
-    message,
-    result,
-    results,
-    dryrun,
+    connect,
     createDataItemSigner as webSigner
 } from "https://www.unpkg.com/@permaweb/aoconnect@0.0.53/dist/browser.js";
 
@@ -14,6 +11,10 @@ import { } from "https://www.unpkg.com/arbundles@0.11.0/build/web/bundle.js";
 import { } from 'https://unpkg.com/arweave/bundles/web.bundle.min.js';
 
 let arweave;
+let message;
+let result;
+let results;
+let dryrun;
 
 export function loadJs(sourceUrl) {
     if (sourceUrl.Length == 0) {
@@ -38,7 +39,35 @@ export function loadJs(sourceUrl) {
 
 export async function InitArweave() {
     arweave = Arweave.init({});
+
+    var connectResult = connect();
+
+    message = connectResult.message;
+    result = connectResult.result;
+    results = connectResult.results;
+    dryrun = connectResult.dryrun;
+
+    console.log(connectResult);
 }
+
+export async function SetConnection(gateway, graphql, mu, cu) {
+    var connectResult = connect(
+        {
+            GATEWAY_URL: gateway,
+            GRAPHQL_URL: graphql,
+            MU_URL: mu,
+            CU_URL: cu
+        },
+    );
+
+    message = connectResult.message;
+    result = connectResult.result;
+    results = connectResult.results;
+    dryrun = connectResult.dryrun;
+
+    console.log(connectResult);
+}
+
 
 export async function HasArConnect() {
     if (window.arweaveWallet) {

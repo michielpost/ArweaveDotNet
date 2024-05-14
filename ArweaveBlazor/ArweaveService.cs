@@ -1,5 +1,6 @@
 using ArweaveBlazor.Models;
 using Microsoft.JSInterop;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,6 +35,13 @@ namespace ArweaveBlazor
             var module = await moduleTask.Value;
 
             await module.InvokeVoidAsync("InitArweave");
+        }
+
+        public async Task SetConnection(string? gateway, string? graphql, string? mu, string? cu)
+        {
+            var module = await moduleTask.Value;
+
+            await module.InvokeVoidAsync("SetConnection", gateway, graphql, mu, cu);
         }
 
         public ValueTask<IJSObjectReference> LoadScripts(string url, IJSRuntime jsRuntime)

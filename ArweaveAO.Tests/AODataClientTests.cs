@@ -1,3 +1,6 @@
+using ArweaveAO.Models;
+using Microsoft.Extensions.Options;
+
 namespace ArweaveAO.Tests
 {
     [TestClass]
@@ -9,7 +12,7 @@ namespace ArweaveAO.Tests
         [TestMethod]
         public async Task GetTokenMetaDataTest()
         {
-            var api = new TokenClient(new HttpClient());
+            var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
             var result = await api.GetTokenMetaData(CRED);
 
             Assert.IsNotNull(result);
@@ -18,7 +21,7 @@ namespace ArweaveAO.Tests
         [TestMethod]
         public async Task GetResultTest()
         {
-            var api = new TokenClient(new HttpClient());
+            var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
             var result = await api.GetResult(Morpheus, "r3Ep9viadnszb107G5Yyo3gMjElVRxBeuC-yKXBS9z4");
 
             Assert.IsNotNull(result);
