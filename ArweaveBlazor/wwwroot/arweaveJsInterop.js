@@ -47,7 +47,7 @@ export async function InitArweave() {
     results = connectResult.results;
     dryrun = connectResult.dryrun;
 
-    console.log(connectResult);
+    //console.log(connectResult);
 }
 
 export async function SetConnection(gateway, graphql, mu, cu) {
@@ -65,7 +65,7 @@ export async function SetConnection(gateway, graphql, mu, cu) {
     results = connectResult.results;
     dryrun = connectResult.dryrun;
 
-    console.log(connectResult);
+    //console.log(connectResult);
 }
 
 
@@ -214,7 +214,7 @@ export async function GetResults(processId, limit) {
         limit: limit,
     });
 
-   console.log(resultsOut);
+   //console.log(resultsOut);
 }
 
 export async function SaveFile(fileName, fileContent) {
