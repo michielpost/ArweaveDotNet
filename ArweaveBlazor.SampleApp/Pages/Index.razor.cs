@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
+using System.Net;
 
 namespace ArweaveBlazor.SampleApp.Pages
 {
@@ -96,10 +97,11 @@ namespace ArweaveBlazor.SampleApp.Pages
         }
 
         string? msgId;
+        private string? newTokenId;
+
         public async Task Send()
         {
             msgId = await ArweaveService.SendAsync(jwk, _morpheus, null, "Morpheus?");
-
         }
 
         public async Task SendDryRun()
@@ -140,6 +142,46 @@ namespace ArweaveBlazor.SampleApp.Pages
         public async Task SetConnection()
         {
             await ArweaveService.SetConnection("https://arweave.dev", "https://arweave.dev/graphql", "https://ao-mu-1.onrender.com", "https://ao-cu-1.onrender.com");
+
+        }
+
+        public async Task CreateProcess()
+        {
+            if (jwk == null)
+                return;
+            var address = await ArweaveService.GetAddress(jwk);
+
+            //string data = "local bint = require('.bint')(256)\r\nlocal ao = require('ao')\r\nlocal json = require('json')\r\n\r\nHandlers.add('talk', Handlers.utils.hasMatchingTag('Action', 'talk'),\r\n  function(msg) \r\n    \r\n    ao.send({ Target = msg.From, Data = \"Hi \" .. msg.Tags.Name .. \", are you The One? Can you create a token for me?\"}) \r\nend)";
+            string data = EmbeddedResourceReader.ReadResource("ArweaveBlazor.SampleApp.token.txt");
+            data = data.Replace("ao.id", $"\"{address}\"");
+            Console.WriteLine(data.Length);
+
+            newTokenId = await ArweaveService.CreateProcess(jwk, "nI_jcZgPd0rcsnjaHtaaJPpMCW847ou-3RGA5_W3aZg");
+            Console.WriteLine("processId: " + newTokenId);
+
+            await Task.Delay(TimeSpan.FromSeconds(1));
+
+            var dataId = await ArweaveService.SendAsync(jwk, newTokenId, address, data, new List<Tag>
+            {
+                new Tag() { Name = "Action", Value = "Eval"}
+            });
+            Console.WriteLine("DataId: " + dataId);
+
+            await Task.Delay(TimeSpan.FromSeconds(1));
+
+            var testResult = await ArweaveService.SendAsync(jwk, newTokenId, null, null, new List<ArweaveBlazor.Models.Tag>
+            {
+                new ArweaveBlazor.Models.Tag { Name = "Target", Value = newTokenId},
+                new ArweaveBlazor.Models.Tag { Name = "Action", Value = "Transfer"},
+                new ArweaveBlazor.Models.Tag { Name = "Quantity", Value = "10000"},
+                new ArweaveBlazor.Models.Tag { Name = "Recipient", Value = "pq58Oa9aMtD3jGvzWBvgcqfhma00R7d-ZqcYp6PBe60"},
+            });
+            Console.WriteLine("testResult: " + testResult);
+
+            await Task.Delay(TimeSpan.FromSeconds(1));
+
+            var resultMsg = await ArweaveService.GetResultAsync<string>(newTokenId, testResult);
+            Console.WriteLine("Result: " + resultMsg);
 
         }
 

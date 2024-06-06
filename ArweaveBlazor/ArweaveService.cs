@@ -151,6 +151,12 @@ namespace ArweaveBlazor
             return result;
         }
 
+        public async ValueTask<string> CreateProcess(string? jwk, string moduleTxId, List<Tag>? tags = null)
+        {
+            var module = await moduleTask.Value;
+            var result = await module.InvokeAsync<string>("CreateProcess", jwk, moduleTxId, tags);
+            return result;
+        }
 
         public async ValueTask<T?> GetResultAsync<T>(string processId, string msgId)
         {

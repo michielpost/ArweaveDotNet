@@ -3,9 +3,9 @@
 import {
     connect,
     createDataItemSigner as webSigner
-} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.53/dist/browser.js";
+} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.55/dist/browser.js";
 
-import { } from "https://www.unpkg.com/arbundles@0.11.0/build/web/bundle.js";
+import { } from "https://www.unpkg.com/arbundles@0.11.1/build/web/bundle.js";
 
 //import { ArweaveWebWallet } from 'https://www.unpkg.com/arweave-wallet-connector-signdataitem-fix@1.0.2/lib/index.js';
 import { } from 'https://unpkg.com/arweave/bundles/web.bundle.min.js';
@@ -15,6 +15,7 @@ let message;
 let result;
 let results;
 let dryrun;
+let spawn;
 
 export function loadJs(sourceUrl) {
     if (sourceUrl.Length == 0) {
@@ -46,6 +47,7 @@ export async function InitArweave() {
     result = connectResult.result;
     results = connectResult.results;
     dryrun = connectResult.dryrun;
+    spawn = connectResult.spawn;
 
     //console.log(connectResult);
 }
@@ -64,6 +66,7 @@ export async function SetConnection(gateway, graphql, mu, cu) {
     result = connectResult.result;
     results = connectResult.results;
     dryrun = connectResult.dryrun;
+    spawn = connectResult.spawn;
 
     //console.log(connectResult);
 }
@@ -160,6 +163,35 @@ export async function Send(jwk, processId, owner, data, tags) {
         });
 
         return result;
+    } catch (error) {
+        console.error(error);
+    }
+
+}
+
+export async function CreateProcess(jwk, moduleTxId, tags) {
+    var signer;
+
+    if (jwk != null) {
+        wallet = JSON.parse(jwk);
+        signer = createDataItemSigner(wallet);
+    }
+    else {
+        var wallet = window.arweaveWallet;
+        signer = webSigner(wallet);
+    }
+
+    try {
+        let newProcessId = await spawn({
+            // The Arweave TXID of the ao Module
+            module: moduleTxId,
+            // The Arweave wallet address of a Scheduler Unit
+            scheduler: "fcoN_xJeisVsPXA-trzVAuIiqO3ydLQxM-L4XbrQKzY",
+            tags: tags,
+            signer: signer,
+        });
+
+        return newProcessId;
     } catch (error) {
         console.error(error);
     }
