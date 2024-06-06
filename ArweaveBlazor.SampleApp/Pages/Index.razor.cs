@@ -102,6 +102,17 @@ namespace ArweaveBlazor.SampleApp.Pages
 
         }
 
+        public async Task StartMonitor()
+        {
+            if (jwk != null)
+            {
+                var address = await ArweaveService.GetAddress(this.jwk);
+                Console.WriteLine("Monitor: " + address);
+                await ArweaveService.MonitorAsync(jwk, address);
+            }
+
+        }
+
         public async Task SendDryRun()
         {
             //var result = await ArweaveService.SendDryRunAsync<string>(_morpheus, null, "Morpheus?");

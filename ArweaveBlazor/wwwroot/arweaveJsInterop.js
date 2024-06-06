@@ -15,6 +15,7 @@ let message;
 let result;
 let results;
 let dryrun;
+let monitor;
 
 export function loadJs(sourceUrl) {
     if (sourceUrl.Length == 0) {
@@ -46,6 +47,7 @@ export async function InitArweave() {
     result = connectResult.result;
     results = connectResult.results;
     dryrun = connectResult.dryrun;
+    monitor = connectResult.monitor;
 
     //console.log(connectResult);
 }
@@ -64,6 +66,7 @@ export async function SetConnection(gateway, graphql, mu, cu) {
     result = connectResult.result;
     results = connectResult.results;
     dryrun = connectResult.dryrun;
+    monitor = connectResult.monitor;
 
     //console.log(connectResult);
 }
@@ -166,6 +169,32 @@ export async function Send(jwk, processId, owner, data, tags) {
 
 }
 
+export async function Monitor(jwk, processId) {
+
+    var signer;
+
+    if (jwk != null) {
+        wallet = JSON.parse(jwk);
+        signer = createDataItemSigner(wallet);
+    }
+    else {
+        var wallet = window.arweaveWallet;
+        signer = webSigner(wallet);
+    }
+
+    try {
+        const result = await monitor({
+            process: processId,
+            signer: createDataItemSigner(wallet),
+        });
+
+        console.log(result);
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 export async function SendDryRun(processId, owner, data, tags) {
     try {
@@ -225,4 +254,6 @@ export async function SaveFile(fileName, fileContent) {
     link.click();
     window.URL.revokeObjectURL(link.href);
 }
+
+
 

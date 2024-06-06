@@ -151,6 +151,12 @@ namespace ArweaveBlazor
             return result;
         }
 
+        public async ValueTask MonitorAsync(string? jwk, string processId)
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("Monitor", jwk, processId);
+        }
+
 
         public async ValueTask<T?> GetResultAsync<T>(string processId, string msgId)
         {
