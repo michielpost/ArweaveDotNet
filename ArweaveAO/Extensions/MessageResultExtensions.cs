@@ -11,7 +11,7 @@ namespace ArweaveAO.Extensions
     {
         public static string? GetFirstTagValue(this MessageResult messageResult, string tag)
         {
-            return messageResult.Messages.FirstOrDefault()?.Tags.Where(x => x.Name == "Name").Select(x => x.Value).FirstOrDefault();
+            return messageResult.Messages.FirstOrDefault()?.Tags.Where(x => x.Name == tag).Select(x => x.Value).FirstOrDefault();
         }
     }
 }
