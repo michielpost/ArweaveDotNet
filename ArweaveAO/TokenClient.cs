@@ -1,4 +1,5 @@
-﻿using ArweaveAO.Models;
+﻿using ArweaveAO.Extensions;
+using ArweaveAO.Models;
 using ArweaveAO.Models.Token;
 using ArweaveAO.Requests;
 using Microsoft.Extensions.Options;
@@ -38,12 +39,12 @@ namespace ArweaveAO
 
                 var tokenData = new TokenData();
                 tokenData.TokenId = processId;
-                tokenData.Name = result.Messages.First().Tags.Where(x => x.Name == "Name").Select(x => x.Value).FirstOrDefault();
-                tokenData.Ticker = result.Messages.First().Tags.Where(x => x.Name == "Ticker").Select(x => x.Value).FirstOrDefault();
-                tokenData.Logo = result.Messages.First().Tags.Where(x => x.Name == "Logo").Select(x => x.Value).FirstOrDefault();
+                tokenData.Name = result.GetFirstTagValue("Name");
+                tokenData.Ticker = result.GetFirstTagValue("Ticker");
+                tokenData.Logo = result.GetFirstTagValue("Logo");
                 
                 
-                string? denomination = result.Messages.First().Tags.Where(x => x.Name == "Denomination").Select(x => x.Value).FirstOrDefault();
+                string? denomination = result.GetFirstTagValue("Denomination");
                 if(!string.IsNullOrWhiteSpace(denomination) && int.TryParse(denomination, out int denominationInt))
                     tokenData.Denomination = denominationInt;
 
@@ -82,10 +83,10 @@ namespace ArweaveAO
 
                 var balanceData = new BalanceData();
                 balanceData.TokenId = tokenId;
-                balanceData.Ticker = result.Messages.First().Tags.Where(x => x.Name == "Ticker").Select(x => x.Value).FirstOrDefault();
-                balanceData.Account = result.Messages.First().Tags.Where(x => x.Name == "Account").Select(x => x.Value).FirstOrDefault();
+                balanceData.Ticker = result.GetFirstTagValue("Ticker");
+                balanceData.Account = result.GetFirstTagValue("Account");
                 
-                string? balance = result.Messages.First().Tags.Where(x => x.Name == "Balance").Select(x => x.Value).FirstOrDefault();
+                string? balance = result.GetFirstTagValue("Balance");
                 if (!string.IsNullOrWhiteSpace(balance) && long.TryParse(balance, out long balanceLong))
                     balanceData.Balance = balanceLong;
 
