@@ -10,6 +10,10 @@ namespace ArweaveAO.Tests
         private const string CRED = "Sa0iBLPNyJQrwpTTG-tWLQU-1QeUAJA73DdxGGiKoJc";
         private const string AOWW = "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY";
 
+        private const string AO = "m3PaWzK4PTG9lAaqYQPaPdOcXdO8hYqi5Fe9NWqXd0w";
+        private const string AOPROXY = "Pi-WmAQp2-mh-oWH9lWpz5EthlUDj_W0IusAv-RXhRk";
+
+
         [TestMethod]
         public async Task DryRunTest()
         {
@@ -52,6 +56,22 @@ namespace ArweaveAO.Tests
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result2);
+        }
+
+        [TestMethod]
+        public async Task GetAoProxyBalanceTest()
+        {
+            string address = "GQ-v3YuFG1Uq3YCLQQQJ1FmdjNmWvQtse35WSxXkK1k";
+
+            var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
+            var result = await api.GetBalance(AO, address);
+            var result2 = await api.GetBalance(AOPROXY, address);
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result2);
+
+            Assert.AreEqual(result.Balance, result2.Balance);
+
         }
     }
 }

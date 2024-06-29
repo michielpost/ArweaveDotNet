@@ -87,8 +87,11 @@ namespace ArweaveAO
                 balanceData.Account = result.GetFirstTagValue("Account");
                 
                 string? balance = result.GetFirstTagValue("Balance");
+                string? balanceFromData = result.GetFirstDataValue();
                 if (!string.IsNullOrWhiteSpace(balance) && long.TryParse(balance, out long balanceLong))
                     balanceData.Balance = balanceLong;
+                else if (!string.IsNullOrWhiteSpace(balanceFromData) && long.TryParse(balanceFromData, out long balanceDataLong))
+                    balanceData.Balance = balanceDataLong;
 
                 return balanceData;
             }
