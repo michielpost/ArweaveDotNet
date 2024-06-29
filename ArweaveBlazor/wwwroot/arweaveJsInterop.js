@@ -3,7 +3,7 @@
 import {
     connect,
     createDataItemSigner as webSigner
-} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.55/dist/browser.js";
+} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.56/dist/browser.js";
 
 import { } from "https://www.unpkg.com/arbundles@0.11.1/build/web/bundle.js";
 
@@ -200,6 +200,18 @@ export async function CreateProcess(jwk, moduleTxId, tags) {
 
 
 export async function SendDryRun(processId, owner, data, tags) {
+    const result = await dryrun({
+        process: 'Pi-WmAQp2-mh-oWH9lWpz5EthlUDj_W0IusAv-RXhRk',
+        tags: [
+            { name: 'Action', value: 'Balance' },
+            { name: 'Target', value: 'GQ-v3YuFG1Uq3YCLQQQJ1FmdjNmWvQtse35WSxXkK1k' }
+        ],
+        data: 'foo'
+    })
+    console.log(result);
+    console.log('done');
+
+
     try {
         let { Messages, Spawns, Output, Error } = await dryrun({
             process: processId,
