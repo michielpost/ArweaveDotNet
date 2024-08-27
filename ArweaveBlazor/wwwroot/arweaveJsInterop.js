@@ -3,7 +3,7 @@
 import {
     connect,
     createDataItemSigner as webSigner
-} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.56/dist/browser.js";
+} from "https://www.unpkg.com/@permaweb/aoconnect@0.0.59/dist/browser.js";
 
 import { } from "https://www.unpkg.com/arbundles@0.11.1/build/web/bundle.js";
 
