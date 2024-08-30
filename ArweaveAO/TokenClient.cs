@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ArweaveAO
@@ -42,11 +43,28 @@ namespace ArweaveAO
                 tokenData.Name = result.GetFirstTagValue("Name");
                 tokenData.Ticker = result.GetFirstTagValue("Ticker");
                 tokenData.Logo = result.GetFirstTagValue("Logo");
+                tokenData.TokenType = TokenType.Token;
                 
                 
                 string? denomination = result.GetFirstTagValue("Denomination");
                 if(!string.IsNullOrWhiteSpace(denomination) && int.TryParse(denomination, out int denominationInt))
                     tokenData.Denomination = denominationInt;
+
+                var dataValue = result.GetFirstDataValue();
+                if (!tokenData.IsValid() && dataValue != null)
+                {
+                    //Try to parse Data tag
+                    JsonDocument doc = JsonDocument.Parse(dataValue);
+                    tokenData.TokenId = processId;
+                    tokenData.Name = doc.RootElement.GetProperty("Name").GetString();
+                    tokenData.Ticker = doc.RootElement.GetProperty("Ticker").GetString();
+                    tokenData.Transferable = doc.RootElement.GetProperty("Transferable").GetBoolean();
+                    tokenData.TokenType = TokenType.AtomicAsset;
+
+                    denomination = doc.RootElement.GetProperty("Denomination").GetString();
+                    if (!string.IsNullOrWhiteSpace(denomination) && int.TryParse(denomination, out denominationInt))
+                        tokenData.Denomination = denominationInt;
+                }
 
                 return tokenData;
             }

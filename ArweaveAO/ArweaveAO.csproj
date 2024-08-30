@@ -8,7 +8,7 @@
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<Authors>Michiel Post</Authors>
-		<Version>0.0.7</Version>
+		<Version>0.0.8</Version>
 		<Product>ArweaveAO</Product>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/michielpost/ArweaveDotNet</PackageProjectUrl>
