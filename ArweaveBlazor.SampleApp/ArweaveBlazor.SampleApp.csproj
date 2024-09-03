@@ -11,11 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="token.txt" />
+    <None Remove="token.lua" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="token.txt" />
+    <EmbeddedResource Include="token.lua" />
   </ItemGroup>
 
   <ItemGroup>

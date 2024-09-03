@@ -151,10 +151,18 @@ namespace ArweaveBlazor
             return result;
         }
 
-        public async ValueTask<string> CreateProcess(string? jwk, string moduleTxId, List<Tag>? tags = null)
+        /// <summary>
+        /// Create a process
+        /// </summary>
+        /// <param name="jwk"></param>
+        /// <param name="moduleTxId"></param>
+        /// <param name="tags"></param>
+        /// <param name="scheduler">https://cookbook_ao.g8way.io/guides/aoconnect/spawning-processes.html</param>
+        /// <returns></returns>
+        public async ValueTask<string> CreateProcess(string? jwk, string moduleTxId, List<Tag>? tags = null, string scheduler = "TZ7o7SIZ06ZEJ14lXwVtng1EtSx60QkPy-kh-kdAXog")
         {
             var module = await moduleTask.Value;
-            var result = await module.InvokeAsync<string>("CreateProcess", jwk, moduleTxId, tags);
+            var result = await module.InvokeAsync<string>("CreateProcess", jwk, moduleTxId, tags, scheduler);
             return result;
         }
 

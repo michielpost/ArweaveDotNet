@@ -97,7 +97,7 @@ namespace ArweaveBlazor.SampleApp.Pages
         }
 
         string? msgId;
-        private string? newTokenId;
+        private string? newProcessId;
 
         public async Task Send()
         {
@@ -125,9 +125,9 @@ namespace ArweaveBlazor.SampleApp.Pages
 
         public async Task GetResult()
         {
-            if(msgId != null)
+            if (msgId != null)
             {
-               var result = await ArweaveService.GetResultAsync<string>(_morpheus, msgId);
+                var result = await ArweaveService.GetResultAsync<string>(_morpheus, msgId);
                 Console.WriteLine("Result: " + result);
             }
 
@@ -151,37 +151,85 @@ namespace ArweaveBlazor.SampleApp.Pages
                 return;
             var address = await ArweaveService.GetAddress(jwk);
 
-            //string data = "local bint = require('.bint')(256)\r\nlocal ao = require('ao')\r\nlocal json = require('json')\r\n\r\nHandlers.add('talk', Handlers.utils.hasMatchingTag('Action', 'talk'),\r\n  function(msg) \r\n    \r\n    ao.send({ Target = msg.From, Data = \"Hi \" .. msg.Tags.Name .. \", are you The One? Can you create a token for me?\"}) \r\nend)";
-            string data = EmbeddedResourceReader.ReadResource("ArweaveBlazor.SampleApp.token.txt");
+            string data = EmbeddedResourceReader.ReadResource("ArweaveBlazor.SampleApp.token.lua");
             data = data.Replace("ao.id", $"\"{address}\"");
-            Console.WriteLine(data.Length);
+            data = data.Replace("$Denomination$", "2");
+            data = data.Replace("$Ticker$", "BLZR");
+            data = data.Replace("$Logo$", "logo-url");
+            Console.WriteLine(data);
 
-            newTokenId = await ArweaveService.CreateProcess(jwk, "nI_jcZgPd0rcsnjaHtaaJPpMCW847ou-3RGA5_W3aZg");
-            Console.WriteLine("processId: " + newTokenId);
+            string moduleId = "zx6_08gJzKNXxLCplINj6TPv9-ElRgeRqr9F6riRBK8";
+            //string previewModuleId = "PSPMkkFrJzYI2bQbkmeEQ5ONmeR-FJZu0fNQoSCU1-I";
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            newProcessId = await ArweaveService.CreateProcess(jwk, moduleId, new List<Tag> {
+                new Tag { Name = "App-Name", Value  = "aos" },
+                new Tag() { Name = "Name", Value = "Blazor"},
 
-            var dataId = await ArweaveService.SendAsync(jwk, newTokenId, address, data, new List<Tag>
+            }
+            );
+
+            if (string.IsNullOrWhiteSpace(newProcessId))
             {
-                new Tag() { Name = "Action", Value = "Eval"}
-            });
-            Console.WriteLine("DataId: " + dataId);
-
-            await Task.Delay(TimeSpan.FromSeconds(1));
-
-            var testResult = await ArweaveService.SendAsync(jwk, newTokenId, null, null, new List<ArweaveBlazor.Models.Tag>
+                throw new Exception("Failed to create new process");
+            }
+            else
             {
-                new ArweaveBlazor.Models.Tag { Name = "Target", Value = newTokenId},
-                new ArweaveBlazor.Models.Tag { Name = "Action", Value = "Transfer"},
-                new ArweaveBlazor.Models.Tag { Name = "Quantity", Value = "10000"},
-                new ArweaveBlazor.Models.Tag { Name = "Recipient", Value = "pq58Oa9aMtD3jGvzWBvgcqfhma00R7d-ZqcYp6PBe60"},
-            });
-            Console.WriteLine("testResult: " + testResult);
+                Console.WriteLine("processId: " + newProcessId);
+            }
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            string? dataId = null;
+            int retryCount = 0;
+            const int maxRetries = 10;
+            const int retryDelay = 2000; // 2 seconds
 
-            var resultMsg = await ArweaveService.GetResultAsync<string>(newTokenId, testResult);
-            Console.WriteLine("Result: " + resultMsg);
+            while (dataId == null && retryCount < maxRetries)
+            {
+                try
+                {
+                    await Task.Delay(retryDelay);
+                    dataId = await ArweaveService.SendAsync(jwk, newProcessId, address, data, new List<Tag>
+                    {
+                        new Tag() { Name = "Action", Value = "Eval"},
+                    });
+                    Console.WriteLine("DataId: " + dataId);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Attempt {retryCount + 1} failed: {ex.Message}");
+                    retryCount++;
+                }
+            }
+
+            if (dataId == null)
+            {
+                Console.WriteLine("Failed to get dataId after maximum retries");
+                return;
+            }
+
+            if (dataId != null)
+            {
+                var mintResult = await ArweaveService.SendAsync(jwk, newProcessId, null, null, new List<ArweaveBlazor.Models.Tag>
+                {
+                    new ArweaveBlazor.Models.Tag { Name = "Target", Value = newProcessId},
+                    new ArweaveBlazor.Models.Tag { Name = "Action", Value = "Mint"},
+                    new ArweaveBlazor.Models.Tag { Name = "Quantity", Value = "10000"}
+                });
+                Console.WriteLine("mintResult: " + mintResult);
+
+                //var testResult = await ArweaveService.SendAsync(jwk, newTokenId, null, null, new List<ArweaveBlazor.Models.Tag>
+                //{
+                //    new ArweaveBlazor.Models.Tag { Name = "Target", Value = newTokenId},
+                //    new ArweaveBlazor.Models.Tag { Name = "Action", Value = "Transfer"},
+                //    new ArweaveBlazor.Models.Tag { Name = "Quantity", Value = "10000"},
+                //    new ArweaveBlazor.Models.Tag { Name = "Recipient", Value = "pq58Oa9aMtD3jGvzWBvgcqfhma00R7d-ZqcYp6PBe60"},
+                //});
+                //Console.WriteLine("testResult: " + testResult);
+
+                //await Task.Delay(TimeSpan.FromSeconds(1));
+
+                //var resultMsg = await ArweaveService.GetResultAsync<string>(newTokenId, testResult);
+                //Console.WriteLine("Result: " + resultMsg);
+            }
 
         }
 
