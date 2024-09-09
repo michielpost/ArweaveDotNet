@@ -12,8 +12,8 @@ namespace ArweaveAO.Responses
         //[JsonPropertyName("Spawns")]
         //public List<object> Spawns { get; set; }
 
-        //[JsonPropertyName("Output")]
-        //public List<object> Output { get; set; }
+        [JsonPropertyName("Output")]
+        public List<OutputResult> Output { get; set; } = new();
 
         //[JsonPropertyName("GasUsed")]
         //public int GasUsed { get; set; }
@@ -32,5 +32,18 @@ namespace ArweaveAO.Responses
 
         [JsonPropertyName("Tags")]
         public List<Tag> Tags { get; set; } = new();
+    }
+
+    public class OutputResult
+    {
+        [JsonPropertyName("data")]
+        public string? Data { get; set; }
+
+        [JsonPropertyName("print")]
+        public string? Print { get; set; }
+
+        [JsonPropertyName("prompt")]
+        public string? Prompt { get; set; }
+
     }
 }

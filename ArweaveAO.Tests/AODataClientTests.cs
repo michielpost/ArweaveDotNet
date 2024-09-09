@@ -1,4 +1,5 @@
 using ArweaveAO.Models;
+using ArweaveAO.Requests;
 using Microsoft.Extensions.Options;
 
 namespace ArweaveAO.Tests
@@ -33,6 +34,30 @@ namespace ArweaveAO.Tests
         {
             var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
             var result = await api.GetResult(Morpheus, "r3Ep9viadnszb107G5Yyo3gMjElVRxBeuC-yKXBS9z4");
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task DryRunTest()
+        {
+            var processId = "eV-KRpB8wKowayHUUf7OpyKaUdr1WpTrRqkgiQdDVDk";
+
+            var request = new DryRunRequest
+            {
+                Target = processId,
+                Tags = new List<Tag>
+                    {
+                        new Tag { Name = "Action", Value = "blahblah"},
+                        new Tag { Name = "Type", Value = "Message"},
+                        new Tag { Name = "Variant", Value = "ao.TN.1"},
+                        new Tag { Name = "Protocol", Value = "ao"},
+                    }
+            };
+
+            var api = new AODataClient(Options.Create(new ArweaveConfig()), new HttpClient());
+
+            var result = await api.DryRun(processId, request);
 
             Assert.IsNotNull(result);
         }
