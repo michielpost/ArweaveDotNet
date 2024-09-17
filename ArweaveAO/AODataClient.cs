@@ -80,6 +80,21 @@ namespace ArweaveAO
             }
         }
 
+        public async Task<MessageResultArrayOutput?> DryRunArrayOutput(string processId, DryRunRequest request)
+        {
+            try
+            {
+                var result = await PostAsync<MessageResultArrayOutput?, DryRunRequest>($"dry-run?process-id={processId}", request);
+                return result;
+
+            }
+            catch (Exception e)
+            {
+                // Deal with exception
+                throw;
+            }
+        }
+
         public async Task<MessageResultSingleOutput?> DryRunSingleOutput(string processId, DryRunRequest request)
         {
             try

@@ -20,6 +20,15 @@ namespace ArweaveAO.Tests
         }
 
         [TestMethod]
+        public async Task GetTokenMetaDataTestWithOutputFilledInJson()
+        {
+            var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
+            var result = await api.GetTokenMetaData("NeKkC_f28KH1d5q3NB3ZN-VxKC1MVU75o8PBZWBDYD8");
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
         public async Task GetAtomicAssetMetaDataTest()
         {
             var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());

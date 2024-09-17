@@ -12,6 +12,18 @@ namespace ArweaveAO.Responses
         //[JsonPropertyName("Spawns")]
         //public List<object> Spawns { get; set; }
 
+        //[JsonPropertyName("GasUsed")]
+        //public int GasUsed { get; set; }
+    }
+
+    public class MessageResultArrayOutput
+    {
+        [JsonPropertyName("Messages")]
+        public List<Message> Messages { get; set; } = new();
+
+        //[JsonPropertyName("Spawns")]
+        //public List<object> Spawns { get; set; }
+
         [JsonPropertyName("Output")]
         public List<OutputResult> Output { get; set; } = new();
 
