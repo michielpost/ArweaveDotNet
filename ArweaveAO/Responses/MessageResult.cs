@@ -1,5 +1,6 @@
 ﻿using ArweaveAO.Models;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace ArweaveAO.Responses
@@ -63,14 +64,17 @@ namespace ArweaveAO.Responses
 
     public class OutputResult
     {
-        [JsonPropertyName("data")]
-        public OutputResultData? Data { get; set; }
+        //[JsonPropertyName("data")]
+        //public OutputResultData? Data { get; set; }
 
         //[JsonPropertyName("print")]
         //public string? Print { get; set; }
 
         //[JsonPropertyName("prompt")]
         //public string? Prompt { get; set; }
+
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     }
 
@@ -79,10 +83,10 @@ namespace ArweaveAO.Responses
         [JsonPropertyName("output")]
         public string? Output { get; set; }
 
-        [JsonPropertyName("prompt")]
-        public string? Prompt { get; set; }
+        //[JsonPropertyName("prompt")]
+        //public string? Prompt { get; set; }
 
-        [JsonPropertyName("json")]
-        public string? Json { get; set; }
+        //[JsonPropertyName("json")]
+        //public string? Json { get; set; }
     }
 }

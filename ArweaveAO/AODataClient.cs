@@ -34,7 +34,21 @@ namespace ArweaveAO
 
             var handlers = new List<string>();
 
-            string? jsonString = result?.Output?.Data?.Output;
+            string? jsonString = "";// result?.Output?.Data?.Output;
+
+            if(result?.Output?.ExtensionData?.ContainsKey("data") ?? false)
+            {
+                if (result.Output.ExtensionData["data"].ValueKind == JsonValueKind.String)
+                {
+                    jsonString = result.Output.ExtensionData["data"].GetString();
+                }
+                else if (result.Output.ExtensionData["data"].ValueKind == JsonValueKind.Object)
+                {
+                    var tempJson = result.Output.ExtensionData["data"].GetRawText();
+                    JsonDocument doc = JsonDocument.Parse(tempJson);
+                    jsonString = doc.RootElement.GetProperty("output").GetString();
+                }
+            }
 
             if (!string.IsNullOrWhiteSpace(jsonString))
             {

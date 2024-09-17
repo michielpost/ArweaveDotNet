@@ -74,8 +74,11 @@ namespace ArweaveAO.Tests
         [TestMethod]
         public async Task GetHandlersTest()
         {
-            var processId = "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY";
-            var owner = "4NdFkWsgFQIEmJnzFSYrO88UmRPf0ABfVh_fRc2u130";
+            //var processId = "0E6drptNUP8R3k3FiiUWbA-4zCp3QJArsCCF96VV9NY";
+            //var owner = "4NdFkWsgFQIEmJnzFSYrO88UmRPf0ABfVh_fRc2u130";
+
+            var processId = "NeKkC_f28KH1d5q3NB3ZN-VxKC1MVU75o8PBZWBDYD8";
+            var owner = "YCH7ugqKwIo_bQebG_eT_7QY0sxVXbnv7BTgmRi7FZk";
 
             var api = new AODataClient(Options.Create(new ArweaveConfig()), new HttpClient());
 
