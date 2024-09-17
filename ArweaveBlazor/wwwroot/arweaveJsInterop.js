@@ -5,7 +5,7 @@ import {
     createDataItemSigner as webSigner
 } from "https://www.unpkg.com/@permaweb/aoconnect@0.0.59/dist/browser.js";
 
-import { } from "https://www.unpkg.com/arbundles@0.11.1/build/web/bundle.js";
+import { } from "https://www.unpkg.com/arbundles@0.11.2/build/web/bundle.js";
 
 //import { ArweaveWebWallet } from 'https://www.unpkg.com/arweave-wallet-connector-signdataitem-fix@1.0.2/lib/index.js';
 import { } from 'https://unpkg.com/arweave/bundles/web.bundle.min.js';

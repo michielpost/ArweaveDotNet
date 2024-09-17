@@ -19,6 +19,21 @@ namespace ArweaveAO.Responses
         //public int GasUsed { get; set; }
     }
 
+    public class MessageResultSingleOutput
+    {
+        [JsonPropertyName("Messages")]
+        public List<Message> Messages { get; set; } = new();
+
+        //[JsonPropertyName("Spawns")]
+        //public List<object> Spawns { get; set; }
+
+        [JsonPropertyName("Output")]
+        public OutputResult? Output { get; set; }
+
+        //[JsonPropertyName("GasUsed")]
+        //public int GasUsed { get; set; }
+    }
+
     public class Message
     {
         [JsonPropertyName("Target")]
@@ -37,13 +52,25 @@ namespace ArweaveAO.Responses
     public class OutputResult
     {
         [JsonPropertyName("data")]
-        public string? Data { get; set; }
+        public OutputResultData? Data { get; set; }
 
-        [JsonPropertyName("print")]
-        public string? Print { get; set; }
+        //[JsonPropertyName("print")]
+        //public string? Print { get; set; }
+
+        //[JsonPropertyName("prompt")]
+        //public string? Prompt { get; set; }
+
+    }
+
+    public class OutputResultData
+    {
+        [JsonPropertyName("output")]
+        public string? Output { get; set; }
 
         [JsonPropertyName("prompt")]
         public string? Prompt { get; set; }
 
+        [JsonPropertyName("json")]
+        public string? Json { get; set; }
     }
 }
