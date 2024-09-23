@@ -8,7 +8,7 @@
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<Authors>Michiel Post</Authors>
-		<Version>0.1.2</Version>
+		<Version>0.2.0</Version>
 		<Product>ArweaveAO</Product>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/michielpost/ArweaveDotNet</PackageProjectUrl>
@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-		<PackageReference Include="Nethereum.Util" Version="4.21.4" />
+		<PackageReference Include="Nethereum.Util" Version="4.25.0" />
 		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
 	</ItemGroup>
 

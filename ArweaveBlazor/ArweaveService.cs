@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -159,7 +160,7 @@ namespace ArweaveBlazor
         /// <param name="tags"></param>
         /// <param name="scheduler">https://cookbook_ao.g8way.io/guides/aoconnect/spawning-processes.html</param>
         /// <returns></returns>
-        public async ValueTask<string> CreateProcess(string? jwk, string moduleTxId, List<Tag>? tags = null, string scheduler = "TZ7o7SIZ06ZEJ14lXwVtng1EtSx60QkPy-kh-kdAXog")
+        public async ValueTask<string> CreateProcess(string? jwk, string? moduleTxId = "bkjb55i07GUCUSWROtKK4HU1mBS_X0TyH3M5jMV6aPg", List<Tag>? tags = null, string scheduler = "_GQ33BkPtZrqxA84vM8Zk-N2aO0toNNu_C-l-rawrBA")
         {
             var module = await moduleTask.Value;
             var result = await module.InvokeAsync<string>("CreateProcess", jwk, moduleTxId, tags, scheduler);

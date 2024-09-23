@@ -158,7 +158,8 @@ namespace ArweaveBlazor.SampleApp.Pages
             data = data.Replace("$Logo$", "logo-url");
             Console.WriteLine(data);
 
-            string moduleId = "zx6_08gJzKNXxLCplINj6TPv9-ElRgeRqr9F6riRBK8";
+            string moduleId = "bkjb55i07GUCUSWROtKK4HU1mBS_X0TyH3M5jMV6aPg";
+            //string moduleId = "zx6_08gJzKNXxLCplINj6TPv9-ElRgeRqr9F6riRBK8";
             //string previewModuleId = "PSPMkkFrJzYI2bQbkmeEQ5ONmeR-FJZu0fNQoSCU1-I";
 
             newProcessId = await ArweaveService.CreateProcess(jwk, moduleId, new List<Tag> {
