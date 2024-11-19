@@ -61,8 +61,9 @@ namespace ArweaveAO.Tests
         [TestMethod]
         public async Task GetAoProxyBalanceTest()
         {
-            string address = "GQ-v3YuFG1Uq3YCLQQQJ1FmdjNmWvQtse35WSxXkK1k";
-
+            //string address = "GQ-v3YuFG1Uq3YCLQQQJ1FmdjNmWvQtse35WSxXkK1k";
+            string address = "aGeRSnWykicBEGESPbTXPQ0_q2IiMLBBMyemu2pBYoA";
+            
             var api = new TokenClient(Options.Create(new ArweaveConfig()), new HttpClient());
             //var result = await api.GetBalance(AO, address);
             var result2 = await api.GetBalance(AOPROXY, address);

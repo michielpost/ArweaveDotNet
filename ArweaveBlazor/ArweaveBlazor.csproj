@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-	  <TargetFramework>net8.0</TargetFramework>
+	  <TargetFramework>net9.0</TargetFramework>
 	  <Nullable>enable</Nullable>
 	  <WarningsAsErrors>nullable</WarningsAsErrors>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <IncludeSymbols>True</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  <Authors>Michiel Post</Authors>
-	  <Version>0.0.11</Version>
+	  <Version>0.1.00</Version>
 	  <Product>ArweaveBlazor</Product>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageProjectUrl>https://github.com/michielpost/ArweaveDotNet</PackageProjectUrl>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
